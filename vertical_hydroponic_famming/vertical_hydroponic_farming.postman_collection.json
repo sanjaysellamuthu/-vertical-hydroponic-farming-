@@ -1,0 +1,551 @@
+{
+	"info": {
+		"_postman_id": "c1f72a45-6b21-4d92-8e7c-hydroponic123",
+		"name": "Community Vertical Hydroponic Farming System",
+		"description": "Postman API Collection for Community Vertical Hydroponic Farming & Produce Distribution Network (Spring Boot 3.4, Java 21)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Master Data",
+			"item": [
+				{
+					"name": "Create Farm Rack",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rackCode\": \"RACK-GAMMA-1\",\n  \"name\": \"Vertical Module Zone 3 - Rack Gamma\",\n  \"zone\": \"Zone 3\",\n  \"status\": \"ACTIVE\",\n  \"currentCrop\": \"Organic Hydroponic Butterhead Lettuce\",\n  \"targetPh\": 5.8,\n  \"targetEc\": 1.8,\n  \"currentPh\": 5.8,\n  \"currentEc\": 1.8,\n  \"lightDurationHours\": 16,\n  \"lightIntensityPercent\": 85,\n  \"lightActive\": true\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/racks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"racks"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get All Racks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/racks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"racks"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Contact (Customer / Vendor)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"code\": \"CUST-002\",\n  \"name\": \"GreenBites Organic Supermarket\",\n  \"type\": \"CUSTOMER\",\n  \"email\": \"orders@greenbites.com\",\n  \"phone\": \"+1-555-0344\",\n  \"address\": \"250 Eco Way, Westside\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"contacts"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get All Contacts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/contacts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"contacts"
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"code\": \"PROD-002\",\n  \"name\": \"Hydroponic Crisphead Iceberg Lettuce\",\n  \"type\": \"PRODUCE\",\n  \"unitOfMeasure\": \"KG\",\n  \"unitPrice\": 10.00,\n  \"costPrice\": 3.50,\n  \"currentStock\": 80.0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"products"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"products"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Chart of Accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"accounts"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "2. Telemetry & Dosing",
+			"item": [
+				{
+					"name": "Ingest Sensor Telemetry",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rackId\": 1,\n  \"phLevel\": 5.3,\n  \"ecLevel\": 1.4,\n  \"temperatureCelsius\": 23.1,\n  \"humidityPercent\": 62.0,\n  \"lightLux\": 13000.0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/telemetry",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"telemetry"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Rack Telemetry",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/telemetry/rack/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"telemetry",
+								"rack",
+								"1"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Dosing Logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/dosing/rack/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"dosing",
+								"rack",
+								"1"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "3. Harvest & Inventory",
+			"item": [
+				{
+					"name": "Log Harvest Yield",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rackId\": 1,\n  \"productId\": 1,\n  \"yieldQuantityKg\": 45.5,\n  \"qualityGrade\": \"GRADE_A\",\n  \"notes\": \"Fresh Butterhead Lettuce batch harvest Zone 3\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/harvest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"harvest"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Harvest History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/harvest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"harvest"
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "4. Procurement Workflow",
+			"item": [
+				{
+					"name": "Create Purchase Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"vendorId\": 2,\n  \"items\": [\n    {\n      \"productId\": 2,\n      \"quantity\": 20.0,\n      \"unitPrice\": 25.00\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/purchase-orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"purchase-orders"
+							]
+						}
+					}
+				},
+				{
+					"name": "Convert PO to Vendor Bill",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/purchase-orders/1/convert-to-bill",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"purchase-orders",
+								"1",
+								"convert-to-bill"
+							]
+						}
+					}
+				},
+				{
+					"name": "Pay Vendor Bill via Bank",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/vendor-bills/1/pay?bankAccountId=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"vendor-bills",
+								"1",
+								"pay"
+							],
+							"query": [
+								{
+									"key": "bankAccountId",
+									"value": "3"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "5. Sales & Invoicing Workflow",
+			"item": [
+				{
+					"name": "Create Sales Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerId\": 1,\n  \"items\": [\n    {\n      \"productId\": 1,\n      \"quantity\": 30.0,\n      \"unitPrice\": 12.50\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/sales-orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"sales-orders"
+							]
+						}
+					}
+				},
+				{
+					"name": "Convert SO to Customer Invoice",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/sales-orders/1/convert-to-invoice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"sales-orders",
+								"1",
+								"convert-to-invoice"
+							]
+						}
+					}
+				},
+				{
+					"name": "Collect Customer Payment via Bank",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/customer-invoices/1/pay?bankAccountId=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"customer-invoices",
+								"1",
+								"pay"
+							],
+							"query": [
+								{
+									"key": "bankAccountId",
+									"value": "3"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "6. Reports & Budgets",
+			"item": [
+				{
+					"name": "Get Balance Sheet",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/reports/balance-sheet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"reports",
+								"balance-sheet"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Profit & Loss Account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/reports/profit-loss",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"reports",
+								"profit-loss"
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Hydroponic Operational Budget Report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/hydro/reports/budget-report/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"hydro",
+								"reports",
+								"budget-report",
+								"1"
+							]
+						}
+					}
+				}
+			]
+		}
+	]
+}
